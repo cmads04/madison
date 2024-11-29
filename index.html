@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madison's Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+        body {
+    font-family: Arial, Helvetica, sans-serif;
+       }
+
+        .full-height {
+            height: 100vh;
+        }
+
+        h1, h2 {
+    font-family: "Times New Roman", Times, serif; /* Fallback fonts added for compatibility */
+    font-weight: bold; 
+    padding-bottom: 10px;
+}
+
+
+        .slider {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+            animation: slideIn 1s ease-out;
+        }
+
+        .form-container input,
+        .form-container button {
+            margin: 10px 0;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 25px;
+        }
+
+        .form-container input {
+            border: 1px solid #ccc;
+            padding: 10px;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        .form-container button {
+            background-color: #5a3c2c;
+            color: white;
+            border: none;
+            padding: 10px;
+            opacity: 0;
+            animation: fadeInUp 1.2s forwards;
+        }
+
+        .form-container button:hover {
+            background-color: #4c3225;
+        }
+
+        .button-container {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        .button-container button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background-color: #d6c6b1;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #000;
+        }
+
+        .button-container button:hover {
+            background-color: #c0ad96;
+        }
+
+        /* About Me Page Styling */
+        .about-container {
+            display: flex;
+            height: 100%;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        .left-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px;
+            background-color: #f5f5f5;
+            animation: fadeInLeft 1.5s ease-in-out;
+        }
+
+        .left-panel h1 {
+            font-size: 2.5rem;
+            color: #5a3c2c;
+        }
+
+        .left-panel p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .left-panel a {
+            color: #5a3c2c;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .left-panel a:hover {
+            text-decoration: underline;
+        }
+
+        .p {
+          text-align: center;
+        }
+
+        .about-button-container {
+            margin-top: 40px;
+        }
+
+        .about-button-container button {
+            background-color: #d6c6b1;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .about-button-container button:hover {
+            background-color: #9e785e;
+        }
+
+        .right-panel {
+            flex: 1;
+            background-image: url('aboutme.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: fadeInRight 1.5s ease-in-out;
+        }
+
+        /* Sticky Navigation Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #d6c6b1;
+            padding: 10px 0;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .navbar a {
+            color: black;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            background-color: #9e785e;
+            border-radius: 5px;
+        }
+
+        /* Section Styling */
+        .section-title {
+            font-size: 2.5rem;
+            margin-top: 40px;
+            color: #4c3225;
+            animation: fadeInUp 1s ease-in-out;
+            text-align: center;
+        }
+
+        /* Image Grids */
+        .photograph-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates two equal-width columns */
+    gap: 15px; /* Adjust the gap between images */
+}
+
+.photograph-grid img {
+    width: 100%; /* Ensures images fill the grid cell width */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 8px; /* Optional: Adds rounded corners */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Optional: Adds smooth hover effects */
+}
+
+.photograph-grid img:hover {
+    transform: scale(1.05); /* Slight zoom-in effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Optional: Adds shadow on hover */
+}
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+
+        .image-grid img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease; /* Smooth transition effects */
+}
+
+.image-grid img:hover {
+    transform: scale(1.1); /* Enlarges the image slightly */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Adds a deeper shadow */
+    opacity: 0.9; /* Slightly dims the image */
+}
+
+
+        /* 3D Models Section Styling */
+        .carousel-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #5a3c2c;
+        }
+
+        /* Section Padding */
+        .section {
+            padding: 60px 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.9);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+    background-color: #d6c6b1; 
+    color: #fff;
+    text-align: center;
+    padding: 20px 0; 
+    font-size: 14px; 
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer a {
+    color: #fff; /* Link color */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.footer a:hover {
+    text-decoration: underline; /* Underline the link on hover */
+}
+
+.footer-content {
+    max-width: 800px; /* Limit content width for better readability */
+    margin: 0 auto; /* Center the content */
+    line-height: 1.6; /* Add spacing between lines for better readability */
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="container-fluid d-flex full-height">
+        <!-- Image Slider -->
+        <div class="col-md-6 p-0">
+            <div id="imageSlider" class="carousel slide h-100" data-bs-ride="carousel">
+                <div class="carousel-inner h-100">
+                    <div class="carousel-item active slider" style="background-image: url('file/l1.jpg');"></div>
+                    <div class="carousel-item slider" style="background-image: url('file/l2.jpg');"></div>
+                    <div class="carousel-item slider" style="background-image: url('file/l3.jpg');"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="col-md-6 form-container text-center">
+            <h1>Welcome!</h1>
+            <p>Unlock my world of creativity by logging in.</p>
+            <form id="loginForm">
+                <input type="text" id="name" placeholder="Enter your name" required>
+                <input type="number" id="age" placeholder="Enter your age" required>
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div id="homePage" class="container-fluid full-height d-none" style="background-image: url('Welcome!.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+        <div class="button-container">
+            <button onclick="navigateTo('aboutPage')">About Me</button>
+            <button onclick="navigateTo('exhibitionsPage')">Exhibitions</button>
+        </div>
+    </div>
+
+    <!-- About Me Page -->
+    <div id="aboutPage" class="container-fluid full-height d-none">
+        <div class="about-container">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <h1>About Me</h1>
+                <p>
+                    I’m Madison, a Multimedia Arts student in FEU Tech.<br><br>
+                    I’ve discovered that my true passion in life is everything involving arts. Instead of focusing on just one area, I’ve realized that my purpose is to create and appreciate beauty in all forms.<br><br>
+                    Uncover this journey by checking out my exhibitions!<br><br>
+                    <a href="https://www.instagram.com/monaybun" target="_blank">@monaybun</a>
+                </p>
+                <div class="about-button-container">
+                    <button onclick="navigateTo('homePage')">Home Page</button>
+                    <button onclick="navigateTo('exhibitionsPage')">Exhibitions</button>
+                </div>
+            </div>
+            <!-- Right Panel -->
+            <div class="right-panel"></div>
+        </div>
+    </div>
+
+<!-- Sticky Navbar -->
+<div id="navbar" class="navbar navbar-expand-lg d-none">
+    <div class="container">
+        <a href="javascript:void(0)" class="navbar-brand" onclick="navigateTo('homePage')">Home</a>
+        <a href="javascript:void(0)" class="navbar-brand" onclick="navigateTo('aboutPage')">About Me</a>
+        <a href="javascript:void(0)" class="navbar-brand" onclick="navigateTo('loginPage')">Login</a>
+    </div>
+</div>
+
+
+    <!-- Exhibitions Page -->
+    <div id="exhibitionsPage" class="container-fluid d-none exhibitions-section">
+        <div class="section-title">
+            <h2>Photographs</h2>
+        </div>
+        <div class="photograph-grid">
+            <!-- Add 15 photos here -->
+            <img src="file/IMG_9549.jpg" alt="Photo 1">
+            <img src="file/IMG_9613.jpg" alt="Photo 2">
+            <img src="file/IMG_8551.jpg" alt="Photo 3">
+            <img src="file/IMG_5214.jpg" alt="Photo 4">
+            <img src="file/IMG_9562.jpg" alt="Photo 5">
+            <img src="file/IMG_9596.jpg" alt="Photo 6">
+            <img src="file/RY.jpeg" alt="Photo 7">
+            <img src="file/IMG_5199.jpg" alt="Photo 9">
+            <img src="file/IMG_6384.jpg" alt="Photo 10">
+            <img src="file/IMG_6650.jpg" alt="Photo 10">
+        </div>
+
+        <div class="section-title">
+            <h2>Illustrations</h2>
+        </div>
+        <div class="image-grid">
+            <!-- Add illustration images here -->
+            <img src="file/IMG_2779.png" alt="Illustration 1">
+            <img src="file/IMG_2783.PNG" alt="Illustration 2">
+            <img src="file/IMG_2785.PNG" alt="Illustration 3">
+            <img src="file/IMG_2784.PNG" alt="Illustration 4">
+            <img src="file/MT-P2.PNG" alt="Illustration 5">
+            <img src="file/Maki.png" alt="Illustration 6">
+            <img src="file/Untitled_Artwork.png" alt="Illustration 7">
+            <img src="file/Kim.png" alt="Illustration 8">
+            <img src="file/fye.png" alt="Illustration 9">
+            <img src="file/Horror_Comic.png" alt="Illustration 10">
+            <img src="file/1.png" alt="Illustration 11">
+            <img src="file/drybrush_1.png" alt="Illustration 12">
+            <img src="file/RV_Catto.png" alt="Illustration 13">
+            <img src="file/Strret.png" alt="Illustration 14">
+        </div>
+
+        <!-- 3D Models Section -->
+        <section class="section" id="models">
+            <h2 class="section-title">3D Models</h2>
+            <div id="modelCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- 4 Images Slider -->
+                    <div class="carousel-item active">
+                        <img src="file/boat.png" alt="Model 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="file/itak.png" alt="Model 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="file/ss.png" alt="Model 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="file/s1.png" alt="Model 4">
+                    </div>
+                </div>
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#modelCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#modelCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <p>
+            Follow me on Instagram: 
+            <a href="https://instagram.com/monaybun" target="_blank">@monaybun</a>
+        </p>
+        <p>© 2024 Maria Crizhia Madison Vasquez. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const loginPage = document.getElementById('loginPage');
+        const homePage = document.getElementById('homePage');
+        const aboutPage = document.getElementById('aboutPage');
+        const exhibitionsPage = document.getElementById('exhibitionsPage');
+
+        // Login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            loginPage.classList.add('d-none');
+            homePage.classList.remove('d-none');
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+
+    if (name && age >= 0) {
+        alert(`Welcome, ${name}!`);
+        navigateTo('homePage');
+    } else {
+        alert('Please fill out all fields correctly.');
+    }
+});
+
+// Navigation function
+function navigateTo(pageId) {
+    // Hide all pages
+    document.querySelectorAll('.container-fluid').forEach(page => page.classList.add('d-none'));
+
+    // Show the selected page
+    document.getElementById(pageId).classList.remove('d-none');
+
+    // Show or hide the navbar depending on the page
+    if (pageId === 'exhibitionsPage') {
+        document.getElementById('navbar').classList.remove('d-none');
+    } else {
+        document.getElementById('navbar').classList.add('d-none');
+    }
+}
+
+    </script>
+</body>
+
+</html>
